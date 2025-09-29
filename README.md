@@ -1,5 +1,5 @@
-[![npm-version](https://img.shields.io/npm/v/@cyntler/react-doc-viewer.svg)](https://www.npmjs.com/package/@cyntler/react-doc-viewer)
-[![npm-download](https://img.shields.io/npm/dt/@cyntler/react-doc-viewer.svg)](https://www.npmjs.com/package/@cyntler/react-doc-viewer)
+[![npm-version](https://img.shields.io/npm/v/@t0kar/react-doc-viewer.svg)](https://www.npmjs.com/package/@t0kar/react-doc-viewer)
+[![npm-download](https://img.shields.io/npm/dt/@t0kar/react-doc-viewer.svg)](https://www.npmjs.com/package/@t0kar/react-doc-viewer)
 
 ## I am stopping work on this library
 
@@ -48,6 +48,7 @@ File viewer for **React v17+**.
 - [Config](#config)
   - [Overriding Header Component](#overriding-header-component)
   - [Overriding Loading Renderer](#overriding-loading-renderer)
+  - [Overriding PDF Controls](#overriding-pdf-controls)
   - [Overriding No Renderer (Error)](#overriding-no-renderer-error)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->

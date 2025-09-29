@@ -10,6 +10,7 @@ import epsFile from "./exampleFiles/eps-file.eps?url";
 import webpFile from "./exampleFiles/webp-file.webp?url";
 
 import { DocViewerRef, IDocument } from ".";
+import { IPdfControlsOverride } from "../dist";
 
 export default {
   title: "DocViewer",
@@ -133,5 +134,85 @@ export const NoRenderType = () => {
       pluginRenderers={DocViewerRenderers}
       language="en"
     />
+  );
+};
+
+export const CustomPDFControls = () => {
+  const [selectedDocs, setSelectedDocs] = useState<File[]>([]);
+
+  const customPDFControls: IPdfControlsOverride = (
+    state,
+    config,
+    pdfZoomOut,
+    pdfZoomIn,
+    pdfZoomReset,
+    pdfTogglePaginated,
+    pdfNextPage,
+    pdfPrevPage,
+  ) => {
+    return (
+      <div
+        id="pdf-controls"
+        style={{
+          display: "flex",
+          gap: "8px",
+          padding: "8px",
+          background: "#eee",
+          position: "sticky",
+          top: 0,
+          left: 0,
+          zIndex: 1,
+        }}
+      >
+        <button onClick={pdfZoomOut}>Zoom Out</button>
+        <span>Zoom: {state.zoomLevel?.toFixed(2)}</span>
+        <button onClick={pdfZoomIn}>Zoom In</button>
+        <button onClick={pdfZoomReset}>Reset Zoom</button>
+        <button onClick={pdfTogglePaginated}>Toggle Pagination</button>
+        <span>Paginated: {state.paginated ? "Yes" : "No"}</span>
+        {state.paginated && state.numPages > 1 && (
+          <>
+            {" "}
+            <button onClick={pdfPrevPage} disabled={state.currentPage <= 1}>
+              Prev Page
+            </button>
+            <span>
+              {state.currentPage} / {state.numPages}
+            </span>
+            <button
+              onClick={pdfNextPage}
+              disabled={state.currentPage >= state.numPages}
+            >
+              Next Page
+            </button>
+          </>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <input
+        type="file"
+        accept=".pdf"
+        multiple
+        onChange={(el) =>
+          el.target.files?.length &&
+          setSelectedDocs(Array.from(el.target.files))
+        }
+      />
+      <DocViewer
+        documents={selectedDocs.map((file) => ({
+          uri: window.URL.createObjectURL(file),
+          fileName: file.name,
+        }))}
+        config={{
+          pdfControls: {
+            overrideComponent: customPDFControls,
+          },
+        }}
+      />
+    </>
   );
 };
