@@ -26,22 +26,11 @@ export const HeaderBar: FC = () => {
     return (
       <Container id="header-bar" data-testid="header-bar">
         <FileName />
-         {    pdfState.paginated && pdfState.numPages > 1 && <button onClick={pdfPrevPage} >
-        Prev Page
-      </button>
-      <span>
-      {pdfState.currentPage} / {pdfState.numPages}
-      </span>
-      <button onClick={pdfNextPage}>
-        Next Page
-      </button> </>} 
         <DocumentNav />
       </Container>
     );
   }
 };
-
-
 
 const Container = styled.div`
   display: flex;
