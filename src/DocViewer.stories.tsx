@@ -9,8 +9,7 @@ import csvFile from "./exampleFiles/csv-file.csv?url";
 import epsFile from "./exampleFiles/eps-file.eps?url";
 import webpFile from "./exampleFiles/webp-file.webp?url";
 
-import { DocViewerRef, IDocument } from ".";
-import { IPdfControlsOverride } from "../dist";
+import { DocViewerRef, IDocument, IPdfControlsOverride } from ".";
 
 export default {
   title: "DocViewer",
