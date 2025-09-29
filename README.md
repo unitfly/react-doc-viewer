@@ -1,5 +1,5 @@
-[![npm-version](https://img.shields.io/npm/v/@cyntler/react-doc-viewer.svg)](https://www.npmjs.com/package/@cyntler/react-doc-viewer)
-[![npm-download](https://img.shields.io/npm/dt/@cyntler/react-doc-viewer.svg)](https://www.npmjs.com/package/@cyntler/react-doc-viewer)
+[![npm-version](https://img.shields.io/npm/v/@t0kar/react-doc-viewer.svg)](https://www.npmjs.com/package/@t0kar/react-doc-viewer)
+[![npm-download](https://img.shields.io/npm/dt/@t0kar/react-doc-viewer.svg)](https://www.npmjs.com/package/@t0kar/react-doc-viewer)
 
 ## I am stopping work on this library
 
@@ -48,6 +48,7 @@ File viewer for **React v17+**.
 - [Config](#config)
   - [Overriding Header Component](#overriding-header-component)
   - [Overriding Loading Renderer](#overriding-loading-renderer)
+  - [Overriding PDF Controls](#overriding-pdf-controls)
   - [Overriding No Renderer (Error)](#overriding-no-renderer-error)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -543,7 +544,7 @@ const MyLoadingRenderer = ({ document, fileName }) => {
 ```
 ### Overriding PDF Controls
 
-You can override the default PDF controls by passing a callback function to `config.pdfControls.overrideComponent`. This function receives several parameters: the current PDF state, the pdfControls config, and handler functions for zooming in, zooming out, resetting zoom, and toggling pagination. Your function should return a React element to render custom controls.
+You can override the default PDF controls by passing a callback function to `config.pdfControls.overrideComponent`. This function receives several parameters: the current PDF state, the pdfControls config, and handler functions for zooming in, zooming out, resetting zoom, toggling pagination, going to next or back to previous page. Your function should return a React element to render custom controls.
 
 Example:
 
@@ -554,20 +555,36 @@ const MyPDFControls = (
   pdfZoomOut,
   pdfZoomIn,
   pdfZoomReset,
-  pdfTogglePaginated
+  pdfTogglePaginated,
+  pdfNextPage,
+  pdfPrevPage
 ) => {
-  // Example: Only show a custom zoom in/out
+
   return (
-    <div>
-      <button onClick={pdfZoomOut}>-</button>
-      <span>{pdfState.zoomLevel.toFixed(2)}</span>
-      <button onClick={pdfZoomIn}>+</button>
+      <div>
+      <button onClick={pdfZoomOut}>Zoom Out</button>
+      <span>
+        Zoom: {pdfState.zoomLevel?.toFixed(2)} 
+      </span>
+      <button onClick={pdfZoomIn}>Zoom In</button>
       <button onClick={pdfZoomReset} disabled={pdfState.zoomLevel === pdfState.defaultZoomLevel}>
-        Reset
+        Reset Zoom
       </button>
       <button onClick={pdfTogglePaginated}>
         {pdfState.paginated ? "Single Page" : "Paginated"}
       </button>
+      <span>
+        Paginated: {pdfState.paginated ? "Yes" : "No"}
+      </span>
+ {    pdfState.paginated && pdfState.numPages > 1 && <button onClick={pdfPrevPage} >
+        Prev Page
+      </button>
+      <span>
+      {pdfState.currentPage} / {pdfState.numPages}
+      </span>
+      <button onClick={pdfNextPage}>
+        Next Page
+      </button> </>} 
     </div>
   );
 };
@@ -591,6 +608,8 @@ The parameters provided to your override function are:
 - `pdfZoomIn`: Function to increase zoom.
 - `pdfZoomReset`: Function to reset zoom to default.
 - `pdfTogglePaginated`: Function to toggle between paginated and continuous scroll.
+- `pdfNextPage`: Function to go to the next page.
+- `pdfPrevPage`: Function to go to the previous page.
 
 If your override returns a React element, it will replace the default PDF controls UI.
 

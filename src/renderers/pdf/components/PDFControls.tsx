@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { Button, LinkButton } from "../../../components/common";
 import { IStyledProps } from "../../..";
 import { PDFContext } from "../state";
-import { setPDFPaginated, setZoomLevel } from "../state/actions";
+import {
+  setCurrentPage,
+  setPDFPaginated,
+  setZoomLevel,
+} from "../state/actions";
 import { useTranslation } from "../../../hooks/useTranslation";
 import {
   DownloadPDFIcon,
@@ -23,6 +27,7 @@ const PDFControls: FC = () => {
     mainState,
     paginated,
     zoomLevel,
+    currentPage,
     numPages,
     zoomJump,
     defaultZoomLevel,
@@ -37,6 +42,8 @@ const PDFControls: FC = () => {
   const pdfZoomIn = () => dispatch(setZoomLevel(zoomLevel + zoomJump));
   const pdfZoomReset = () => dispatch(setZoomLevel(defaultZoomLevel));
   const pdfTogglePaginated = () => dispatch(setPDFPaginated(!paginated));
+  const pdfNextPage = () => dispatch(setCurrentPage(currentPage + 1));
+  const pdfPrevPage = () => dispatch(setCurrentPage(currentPage - 1));
 
   const override = config?.pdfControls?.overrideComponent?.(
     pdfState,
@@ -45,6 +52,8 @@ const PDFControls: FC = () => {
     pdfZoomIn,
     pdfZoomReset,
     pdfTogglePaginated,
+    pdfNextPage,
+    pdfPrevPage,
   );
 
   if (override) {

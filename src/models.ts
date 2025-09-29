@@ -60,17 +60,17 @@ export type IHeaderOverride = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) => ReactElement<any, any> | null;
 
-export type IPdfControlsOverride = {
-  (
-    state: IPDFState,
-    config: IPdfControlsConfig,
-    pdfZoomOut?: () => void,
-    pdfZoomIn?: () => void,
-    pdfZoomReset?: () => void,
-    pdfTogglePaginated?: () => void,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): ReactElement<any, any> | null;
-};
+export type IPdfControlsOverride = (
+  state: IPDFState,
+  config: IPdfControlsConfig,
+  pdfZoomOut?: () => void,
+  pdfZoomIn?: () => void,
+  pdfZoomReset?: () => void,
+  pdfTogglePaginated?: () => void,
+  pdfNextPage?: () => void,
+  pdfPrevPage?: () => void,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+) => ReactElement<any, any> | null;
 
 export interface ITheme {
   primary?: string;
