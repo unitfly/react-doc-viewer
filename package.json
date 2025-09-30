@@ -1,6 +1,6 @@
 {
-  "name": "@unitfly/react-doc-viewer",
-  "version": "1.0.0",
+  "name": "@t0kar/react-doc-viewer",
+  "version": "1.0.3",
   "description": "File viewer for React.",
   "author": "Matthew Mogford / Damian Cyntler / Toma Karadole",
   "type": "module",
