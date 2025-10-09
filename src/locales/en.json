@@ -6,5 +6,7 @@
   "msgPluginRecipients": "Recipients",
   "msgPluginSender": "Sender",
   "pdfPluginLoading": "Loading...",
-  "pdfPluginPageNumber": "Page {{ currentPage }}/{{ allPagesCount }}"
+  "pdfPluginPageNumber": "Page {{ currentPage }}/{{ allPagesCount }}",
+  "selectDocument": "Select document",
+  "documentNumber": "Document {{ number }} "
 }

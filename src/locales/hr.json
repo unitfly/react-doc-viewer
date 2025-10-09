@@ -1,0 +1,12 @@
+{
+  "documentNavInfo": "Dokument {{ currentFileNo }} od {{ allFilesCount }}",
+  "noRendererMessage": "Ne postoji preglednik za tip dokumenta: {{ fileType }}",
+  "downloadButtonLabel": "Preuzimanje dokumenta",
+  "brokenFile": "Vaš dokument nije valjan. Molimo Vas probajte ga otvoriti na vašem računalu.",
+  "msgPluginRecipients": "Primatelji",
+  "msgPluginSender": "Pošiljatelj",
+  "pdfPluginLoading": "Učitavanje...",
+  "pdfPluginPageNumber": "Stranica {{ currentPage }}/{{ allPagesCount }}",
+  "selectDocument": "Odaberi dokument",
+  "documentNumber": "Dokument {{ number }} "
+}

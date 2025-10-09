@@ -27,11 +27,17 @@ export interface INoRendererConfig {
     fileName: string;
   }>;
 }
+export enum navigationMode {
+  BUTTONS = "buttons",
+  SELECTOR = "selector",
+  BOTH = "both",
+}
 
 export interface IHeaderConfig {
   disableHeader?: boolean;
   disableFileName?: boolean;
   retainURLParams?: boolean;
+  navigationMode?: navigationMode | "buttons" | "selector" | "both";
   overrideComponent?: IHeaderOverride;
 }
 
@@ -57,6 +63,7 @@ export type IHeaderOverride = (
   state: IMainState,
   previousDocument: () => void,
   nextDocument: () => void,
+  updateCurrentDocument: (doc: IDocument) => void,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) => ReactElement<any, any> | null;
 

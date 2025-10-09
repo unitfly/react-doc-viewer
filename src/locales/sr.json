@@ -6,5 +6,7 @@
   "msgPluginRecipients": "Primaoci",
   "msgPluginSender": "Pošiljalac",
   "pdfPluginLoading": "Učitavanje...",
-  "pdfPluginPageNumber": "Strana {{ currentPage }}/{{ allPagesCount }}"
+  "pdfPluginPageNumber": "Strana {{ currentPage }}/{{ allPagesCount }}",
+  "selectDocument": "Izaberi dokument",
+  "documentNumber": "Dokument {{ number }} "
 }

@@ -6,5 +6,7 @@
   "msgPluginRecipients": "Alıcılar",
   "msgPluginSender": "Gönderen",
   "pdfPluginLoading": "Yükleniyor...",
-  "pdfPluginPageNumber": "Sayfa {{ currentPage }}/{{ allPagesCount }}"
+  "pdfPluginPageNumber": "Sayfa {{ currentPage }}/{{ allPagesCount }}",
+  "selectDocument": "Belge seç",
+  "documentNumber": "Belge {{ number }} "
 }

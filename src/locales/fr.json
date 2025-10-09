@@ -6,5 +6,7 @@
   "msgPluginRecipients": "Destinataires",
   "msgPluginSender": "Expéditeur",
   "pdfPluginLoading": "Chargement...",
-  "pdfPluginPageNumber": "Page {{ currentPage }}/{{ allPagesCount }}"
+  "pdfPluginPageNumber": "Page {{ currentPage }}/{{ allPagesCount }}",
+  "selectDocument": "Sélectionner un document",
+  "documentNumber": "Document {{ number }} "
 }

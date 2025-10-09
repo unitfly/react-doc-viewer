@@ -96,6 +96,7 @@ export const ManualNextPrevNavigation = () => {
         documents={docs}
         activeDocument={activeDocument}
         onDocumentChange={handleDocumentChange}
+        config={{ header: { navigationMode: "selector" } }}
       />
     </>
   );
@@ -211,5 +212,11 @@ export const CustomPDFControls = () => {
         }}
       />
     </>
+  );
+};
+
+export const customHeader = () => {
+  return (
+    <DocViewer documents={docs} initialActiveDocument={docs[1]} config={{}} />
   );
 };
