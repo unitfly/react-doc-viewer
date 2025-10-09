@@ -102,7 +102,6 @@ export const ManualNextPrevNavigation = () => {
         documents={docs}
         activeDocument={activeDocument}
         onDocumentChange={handleDocumentChange}
-        config={{ header: { navigationMode: "selector" } }}
       />
     </>
   );
