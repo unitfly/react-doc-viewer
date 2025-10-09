@@ -9,7 +9,12 @@ import csvFile from "./exampleFiles/csv-file.csv?url";
 import epsFile from "./exampleFiles/eps-file.eps?url";
 import webpFile from "./exampleFiles/webp-file.webp?url";
 
-import { DocViewerRef, IDocument, IPdfControlsOverride } from ".";
+import {
+  DocViewerRef,
+  IDocument,
+  IPdfControlsOverride,
+  IHeaderOverride,
+} from ".";
 
 export default {
   title: "DocViewer",
@@ -78,6 +83,7 @@ export const WithPDFInput = () => {
           fileName: file.name,
         }))}
         pluginRenderers={DocViewerRenderers}
+        language="hr"
       />
     </>
   );
@@ -215,8 +221,76 @@ export const CustomPDFControls = () => {
   );
 };
 
-export const customHeader = () => {
+export const CustomHeader = () => {
+  const customHeader: IHeaderOverride = (
+    state,
+    previousDocument,
+    nextDocument,
+    updateCurrentDocument,
+  ) => {
+    const navigationMode = state.config?.header?.navigationMode || "buttons";
+
+    return (
+      <div style={{ padding: 10, background: "#ddd" }}>
+        {(navigationMode === "buttons" || navigationMode === "both") && (
+          <>
+            <button
+              onClick={previousDocument}
+              disabled={!state.currentDocument}
+            >
+              Prev
+            </button>
+            <span style={{ margin: "0 10px" }}>
+              {state.currentDocument?.uri}
+            </span>
+            <button onClick={nextDocument} disabled={!state.currentDocument}>
+              Next
+            </button>
+          </>
+        )}
+
+        {(navigationMode === "selector" || navigationMode === "both") && (
+          <select
+            style={{ marginLeft: 10 }}
+            value={
+              state.currentDocument && state.documents
+                ? state.currentFileNo !== undefined
+                  ? state.currentFileNo
+                  : state.documents.findIndex(
+                      (doc) => doc.uri === state.currentDocument?.uri,
+                    )
+                : -1
+            }
+            onChange={(e) => {
+              const selectedIndex = parseInt(e.target.value, 10);
+              const selectedDoc = state.documents
+                ? state.documents[selectedIndex]
+                : null;
+              if (selectedDoc) {
+                updateCurrentDocument(selectedDoc);
+              }
+            }}
+          >
+            <option value={-1} disabled>
+              Select document
+            </option>
+            {state.documents?.map((doc, index) => (
+              <option key={doc.uri} value={index}>
+                {doc.fileName || `Document ${index + 1}`}
+              </option>
+            ))}
+          </select>
+        )}
+      </div>
+    );
+  };
   return (
-    <DocViewer documents={docs} initialActiveDocument={docs[1]} config={{}} />
+    <DocViewer
+      documents={docs}
+      initialActiveDocument={docs[1]}
+      config={{
+        header: { overrideComponent: customHeader, navigationMode: "selector" },
+      }}
+    />
   );
 };

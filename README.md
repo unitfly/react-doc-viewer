@@ -443,30 +443,73 @@ You can provide a config object, which configures parts of the component as requ
 ### Overriding Header Component
 
 You can pass a callback function to `config.header.overrideComponent` that returns a React Element. The function's parameters will be populated and usable, this function will also be re-called whenever the mainState updates.
-Parameters include the state object from the main component, and document navigation functions for `previousDocument` and `nextDocument`.
+Parameters include the state object from the main component, and document navigation functions for `previousDocument`, `nextDocument`, and `updateCurrentDocument` to directly select any document.
+
+The `navigationMode` property in `config.header` can be used to control which navigation elements are shown:
+- `"buttons"` (default): Shows only previous/next buttons
+- `"selector"`: Shows only a dropdown selector 
+- `"both"`: Shows both buttons and selector
+
 
 Example:
 
 ```tsx
-const MyHeader: IHeaderOverride = (state, previousDocument, nextDocument) => {
+const MyHeader: IHeaderOverride = (state, previousDocument, nextDocument, updateCurrentDocument) => {
   if (!state.currentDocument || state.config?.header?.disableFileName) {
     return null;
   }
 
   return (
     <>
-      <div>{state.currentDocument.uri || ""}</div>
-      <div>
-        <button onClick={previousDocument} disabled={state.currentFileNo === 0}>
-          Previous Document
-        </button>
-        <button
-          onClick={nextDocument}
-          disabled={state.currentFileNo >= state.documents.length - 1}
-        >
-          Next Document
-        </button>
-      </div>
+       {(navigationMode === "buttons" || navigationMode === "both") && (
+          <>
+            <button
+              onClick={previousDocument}
+              disabled={!state.currentDocument}
+            >
+              Prev
+            </button>
+            <span style={{ margin: "0 10px" }}>
+              {state.currentDocument?.uri}
+            </span>
+            <button onClick={nextDocument} disabled={!state.currentDocument}>
+              Next
+            </button>
+          </>
+        )}
+
+        {(navigationMode === "selector" || navigationMode === "both") && (
+          <select
+            style={{ marginLeft: 10 }}
+            value={
+              state.currentDocument && state.documents
+                ? state.currentFileNo !== undefined
+                  ? state.currentFileNo
+                  : state.documents.findIndex(
+                      (doc) => doc.uri === state.currentDocument?.uri,
+                    )
+                : -1
+            }
+            onChange={(e) => {
+              const selectedIndex = parseInt(e.target.value, 10);
+              const selectedDoc = state.documents
+                ? state.documents[selectedIndex]
+                : null;
+              if (selectedDoc) {
+                updateCurrentDocument(selectedDoc);
+              }
+            }}
+          >
+            <option value={-1} disabled>
+              Select document
+            </option>
+            {state.documents?.map((doc, index) => (
+              <option key={doc.uri} value={index}>
+                {doc.fileName || `Document ${index + 1}`}
+              </option>
+            ))}
+          </select>
+        )}
     </>
   );
 };
@@ -481,6 +524,7 @@ const MyHeader: IHeaderOverride = (state, previousDocument, nextDocument) => {
   config={{
     header: {
       overrideComponent: MyHeader,
+      navigationMode: "selector"
     },
   }}
 />;
