@@ -9,8 +9,7 @@ import csvFile from "./exampleFiles/csv-file.csv?url";
 import epsFile from "./exampleFiles/eps-file.eps?url";
 import webpFile from "./exampleFiles/webp-file.webp?url";
 
-import { DocViewerRef, IDocument } from ".";
-import { IPdfControlsOverride } from "../dist";
+import { DocViewerRef, IDocument, IPdfControlsOverride } from ".";
 
 export default {
   title: "DocViewer",
@@ -152,7 +151,6 @@ export const CustomPDFControls = () => {
   ) => {
     return (
       <div
-        id="pdf-controls"
         style={{
           display: "flex",
           gap: "8px",
@@ -172,7 +170,6 @@ export const CustomPDFControls = () => {
         <span>Paginated: {state.paginated ? "Yes" : "No"}</span>
         {state.paginated && state.numPages > 1 && (
           <>
-            {" "}
             <button onClick={pdfPrevPage} disabled={state.currentPage <= 1}>
               Prev Page
             </button>

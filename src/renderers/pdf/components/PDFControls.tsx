@@ -70,16 +70,16 @@ const PDFControls: FC = () => {
             download={currentDocument?.fileName || currentDocument?.uri}
             title={t("downloadButtonLabel")}
           >
-            <DownloadPDFIcon color="#000" size="75%" />
+            <DownloadPDFIcon color="#000" size="65%" />
           </DownloadButton>
         )}
 
         <ControlButton id="pdf-zoom-out" onMouseDown={pdfZoomOut}>
-          <ZoomOutPDFIcon color="#000" size="80%" />
+          <ZoomOutPDFIcon color="#000" size="65%" />
         </ControlButton>
 
         <ControlButton id="pdf-zoom-in" onMouseDown={pdfZoomIn}>
-          <ZoomInPDFIcon color="#000" size="80%" />
+          <ZoomInPDFIcon color="#000" size="65%" />
         </ControlButton>
 
         <ControlButton
@@ -87,7 +87,7 @@ const PDFControls: FC = () => {
           onMouseDown={pdfZoomReset}
           disabled={zoomLevel === defaultZoomLevel}
         >
-          <ResetZoomPDFIcon color="#000" size="70%" />
+          <ResetZoomPDFIcon color="#000" size="65%" />
         </ControlButton>
 
         {numPages > 1 && (
@@ -97,7 +97,7 @@ const PDFControls: FC = () => {
           >
             <TogglePaginationPDFIcon
               color="#000"
-              size="70%"
+              size="65%"
               reverse={paginated}
             />
           </ControlButton>
@@ -116,29 +116,56 @@ const Container = styled.div`
   left: 0;
   z-index: 1;
   justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
   padding: 8px;
   background-color: ${(props: IStyledProps) => props.theme.tertiary};
   box-shadow: 0px 2px 3px #00000033;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 5px;
 
   @media (max-width: 768px) {
     padding: 6px;
+    gap: 3px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 4px;
+    gap: 2px;
   }
 `;
 
 const ControlButton = styled(Button)`
-  width: 30px;
+  width: min(30px, calc(100% / 6 - 10px));
   height: 30px;
+  min-width: 25px;
+  flex-shrink: 0;
+
   @media (max-width: 768px) {
-    width: 25px;
+    width: min(25px, calc(100% / 6 - 8px));
     height: 25px;
+  }
+
+  @media (max-width: 480px) {
+    width: min(22px, calc(100% / 6 - 6px));
+    height: 22px;
   }
 `;
 
 const DownloadButton = styled(LinkButton)`
-  width: 30px;
+  width: min(30px, calc(100% / 6 - 10px));
   height: 30px;
+  min-width: 25px;
+  flex-shrink: 0;
+
   @media (max-width: 768px) {
-    width: 25px;
+    width: min(25px, calc(100% / 6 - 8px));
     height: 25px;
+  }
+
+  @media (max-width: 480px) {
+    width: min(22px, calc(100% / 6 - 6px));
+    height: 22px;
   }
 `;
